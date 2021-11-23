@@ -41,7 +41,7 @@ const UserInfo = () => {
       <h1> 혼자 연습해보는 API 통신 예제 </h1>
       <div>
         {user.map(data => (
-          <Box>
+          <Box key={data.id}>
           <div>{data.name}</div>
           <div>
           <div>{data.email}</div>
