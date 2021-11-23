@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# API 연동하기 연습
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- JSONPlaceholder 에서 제공해주는 연습용 API를 사용해서 이번 토이프로젝트를 진행하겠습니다.
 
-## Available Scripts
+## 사용 할 라이브러리
 
-In the project directory, you can run:
+- Axios : Rest API를 요청하게 될 때 이를 Promise 기반으로 처리할 수 있게 해주는 라이브러리
 
-### `npm start`
+* 간단한 사용 예시
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- import axios from 'axios';
+- axios get('/users/1');
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- axios post('/users', {
+  username : 'sangcheol LEE',
+  name: 'Ian'
+  })
 
-### `npm test`
+## 작업 진행
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- npx create-react-app
+- npm add axios
 
-### `npm run build`
+# 작업 간 알게 된 내용들
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## REST API
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 클라이언트와 서버가 소통하는 방식
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* 소통방식은 여러가지이고 이걸 HTTP 메서드라고 합니다.
 
-### `npm run eject`
+- GET : 데이터 조회
+- POST : 데이터 등록
+- PUT : 데이터 수정
+- DELETE : 데이터 제거
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 컴포넌트에서 API를 요청하는 가장 기본적인 방법
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- useState 와 useEffect 로 데이터 로딩하기
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* API를 요청해야 할 때는 3가지 종류의 상태를 관리해야 합니다.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1.  요청의 결과
+2.  로딩 상태
+3.  에러
 
-## Learn More
+## API 통신 간 개발자 도구 Network Tab 꼭 잘 확인 할 것
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 와이파이버튼 옆 드롭다운을 누르면 인터넷 속도를 조절 할 수 있다.
+- 에러의 status code를 보고싶을 땐, error쪽에 console.log(e.response.status)로 확인이 가능함.
