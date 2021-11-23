@@ -48,3 +48,5 @@
 
 - 와이파이버튼 옆 드롭다운을 누르면 인터넷 속도를 조절 할 수 있다.
 - 에러의 status code를 보고싶을 땐, error쪽에 console.log(e.response.status)로 확인이 가능함.
+
+## useReducer로 요청 상태 관리하기 !
