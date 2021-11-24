@@ -1,61 +1,21 @@
-import React,{ useEffect, useReducer } from 'react'
+import React from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
+import useAsynk from '../UseAsynk';
 
-// LOADING, SUCCESS, ERROR 등 3가지 엑션을 관리해 줄 예정
-const reducerEx = (state, action ) => {
-  switch(action.type) {
-    case "LOADING" : 
-      return {
-        loading : true,
-        data: null,
-        error : null,
-      }
-    case "SUCCESS" : 
-      return {
-        loading: false,
-        data: action.data,
-        error: null,
-      }
-    case "ERROR" : 
-      return {
-        loading: false,
-        data:null,
-        error: action.error,
-      }
-      default :
-        throw new Error(`Unhandled action type : ${action.type}`); 
-  }
+async function getUsers() { //이게 우리가 만든 커스텀훅인 useAsynK에 매개변수 콜백함수 자리에 들어갈 함수 
+  const response = await axios.get(`https://jsonplaceholder.typicode.com/users/`);
+  return response.data;
 }
 
+
 const UserEx = () => {
-
-  const [state, dispatch] = useReducer(reducerEx, {
-    loading: false,
-    data: null,
-    error: null,
-  }) // 초기값 설정하는 거 잊지마셈
-
-  const fetchUsers = async() => {
-    dispatch({ type:"LOADING" })
-    try {
-          const response = await axios.get(
-        `https://jsonplaceholder.typicode.com/users/`
-      );
-      dispatch({ type:'SUCCESS', data: response.data })
-    } catch (e) {
-      dispatch({ type:'ERROR', error : e });
-    }
-  };
-
-  useEffect(() => {
-     fetchUsers();
-  },[]);
+    const [state,refetch] = useAsynk(getUsers, [], true);
 
     const {loading, data:users , error} = state; // 비구조화할당으로 빼준 모습.
     if(loading) return <Container><h1>로딩중이다.</h1></Container>;
     if(error) return <Container>에러발생..</Container>;
-    if(!users) return null
+    if(!users) return <Container> <button onClick={refetch}>불러오기</button> </Container>
 
   return (
     <Container>
@@ -67,7 +27,7 @@ const UserEx = () => {
         </li>
       ))}
     </ul>
-    <button onClick={() => fetchUsers()}>data받아라 ~</button>
+    <button onClick={refetch}>data받아라 ~</button>
     </Container>
   )
 }
